@@ -1,0 +1,42 @@
+---
+- name: Install python version 2
+  hosts: all
+  gather_facts: no
+
+  tasks:
+  - name: Install python version 2 on ubuntu
+    raw: test -e /usr/bin/python || (test -e /usr/bin/apt && (apt -y update && apt install -y python-minimal))
+    register: result
+    changed_when: result.rc != 0
+    become: true
+
+- name: Playbook for role testing
+  hosts: all
+
+  vars:
+    configuration_type: tarball
+
+  vars_files:
+    - "../vars/molecule.yml"
+
+  roles:
+    - role: "../../ansible-configuration"
+
+- name: Playbook for role testing
+  hosts: all
+
+  vars:
+    configuration_type: git
+
+  vars_files:
+    - "../vars/molecule.yml"
+
+  pre_tasks:
+    - name: Remove existing configuration directory
+      file:
+        path: "{{ configuration_directory }}"
+        state: absent
+      become: true
+
+  roles:
+    - role: "../../ansible-configuration"

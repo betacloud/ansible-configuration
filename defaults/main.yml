@@ -1,0 +1,25 @@
+---
+# possible values: git, tarball
+
+configuration_type: tarball
+
+# destionation path for the configuration files
+
+configuration_directory: /opt/kolla-configuration
+
+# parameters for configuration type "git"
+
+# configuration_git_private_key:
+# configuration_git_private_key_file:
+configuration_git_repository: git@github.com:organisation/configuration-IDENTIFICATION-ENVIRONMENT.git
+configuration_git_version: master
+
+# parameters for configuration type "tarball"
+
+configuration_tarball_name: name
+# configuration_tarball_password:
+configuration_tarball_path: repository
+configuration_tarball_protocol: https
+configuration_tarball_server: files.organisation.tld
+# configuration_tarball_username:
+configuration_tarball_version: latest

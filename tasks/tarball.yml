@@ -1,0 +1,68 @@
+# This file is subject to the terms and conditions defined in file 'LICENSE',
+# which is part of this repository.
+---
+- name: Set tempdir
+  set_fact:
+    tempdir: /tmp
+
+- name: Prepare configuration_tarball archive
+  set_fact:
+    configuration_tarball: "{{ configuration_tarball_name }}-{{ configuration_tarball_version }}.tar.gz"
+
+- name: Install rsync
+  package:
+    name: rsync
+    state: present
+  become: true
+
+- name: Download configuration archive using username/password
+  get_url:
+    url: "{{ configuration_tarball_protocol }}://{{ configuration_tarball_server }}/{{ configuration_tarball_path }}/{{ configuration_tarball }}"
+    dest: "{{ configuration_directory }}/{{ configuration_tarball }}"
+    mode: 0644
+    url_username: "{{ configuration_tarball_username }}"
+    url_password: "{{ configuration_tarball_password }}"
+    force_basic_auth: yes
+  when:
+    - configuration_tarball_username is defined
+    - configuration_tarball_password is defined
+  delegate_to: localhost
+
+- name: Download configuration archive without login
+  get_url:
+    url: "{{ configuration_tarball_protocol }}://{{ configuration_tarball_server }}/{{ configuration_tarball_path }}/{{ configuration_tarball }}"
+    dest: "{{ tempdir }}/{{ configuration_tarball }}"
+    mode: 0644
+  when:
+    - configuration_tarball_username is not defined
+    - configuration_tarball_password is not defined
+  delegate_to: localhost
+
+- name: Create temporary unarchive directory
+  command: "mktemp -d {{ tempdir }}/config.XXXX"
+  register: tempunarchivedir
+  delegate_to: localhost
+
+- name: Unarchive configuration archive
+  unarchive:
+    src: "{{ tempdir }}/{{ configuration_tarball }}"
+    dest: "{{ tempunarchivedir.stdout }}"
+    remote_src: true
+  delegate_to: localhost
+
+- name: Synchronize configuration directory
+  synchronize:
+    src: "{{ tempunarchivedir.stdout }}"
+    dest: "{{ configuration_directory }}"
+
+- name: Remove temporary unarchive directory
+  file:
+    path: "{{ tempunarchivedir.stdout }}"
+    state: absent
+  delegate_to: localhost
+
+- name: Remove tarball
+  file:
+    path: "{{ tempdir }}/{{ configuration_tarball }}"
+    state: absent
+  delegate_to: localhost

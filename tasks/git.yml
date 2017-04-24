@@ -1,0 +1,57 @@
+# This file is subject to the terms and conditions defined in file 'LICENSE',
+# which is part of this repository.
+---
+
+# NOTE: http://stackoverflow.com/questions/33343215/how-to-get-remote-users-home-directory-in-ansible
+- name: Get home directory
+  shell: "getent passwd {{ ansible_user }} | cut -d: -f6"
+  changed_when: false
+  register: home
+
+- name: Create .ssh directory if it does not exists
+  file:
+    path: "{{ home.stdout }}/.ssh"
+    state: directory
+    mode: 0700
+  when: configuration_git_private_key is defined
+
+- name: Copy ssh config file
+  template:
+    src: config.j2
+    dest: "{{ home.stdout }}/.ssh/config"
+    mode: 0600
+  when: configuration_git_private_key is defined
+
+- name: Copy private ssh key of configuration repository
+  copy:
+    content: "{{ configuration_git_private_key }}"
+    dest: "{{ home.stdout }}/.ssh/{{ configuration_git_private_key_file }}"
+    mode: 0600
+  when: configuration_git_private_key is defined
+
+- name: Install git
+  package:
+    name: git
+    state: present
+  become: true
+
+- name: Clone configuration repository using a keyfile
+  git:
+    repo: "{{ configuration_git_repository }}"
+    dest: "{{ configuration_directory }}"
+    version: "{{ configuration_git_version }}"
+    key_file: "{{ home.stdout }}/.ssh/{{ configuration_git_private_key_file }}"
+    accept_hostkey: yes
+    force: yes
+  when: configuration_git_private_key is defined
+
+- name: Clone configuration repository without login
+  git:
+    repo: "{{ configuration_git_repository }}"
+    dest: "{{ configuration_directory }}"
+    version: "{{ configuration_git_version }}"
+    accept_hostkey: yes
+    force: yes
+  when: configuration_git_private_key is not defined
+
+# FIXME: support login with username/password
