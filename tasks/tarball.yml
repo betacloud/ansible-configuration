@@ -26,7 +26,6 @@
   when:
     - configuration_tarball_username is defined
     - configuration_tarball_password is defined
-  delegate_to: localhost
 
 - name: Download configuration archive without login
   get_url:
@@ -36,33 +35,26 @@
   when:
     - configuration_tarball_username is not defined
     - configuration_tarball_password is not defined
-  delegate_to: localhost
 
 - name: Create temporary unarchive directory
   command: "mktemp -d {{ tempdir }}/config.XXXX"
   register: tempunarchivedir
-  delegate_to: localhost
 
 - name: Unarchive configuration archive
   unarchive:
     src: "{{ tempdir }}/{{ configuration_tarball }}"
     dest: "{{ tempunarchivedir.stdout }}"
     remote_src: true
-  delegate_to: localhost
 
 - name: Synchronize configuration directory
-  synchronize:
-    src: "{{ tempunarchivedir.stdout }}"
-    dest: "{{ configuration_directory }}"
+  command: "rsync -rtvu --delete {{ tempunarchivedir.stdout }} {{ configuration_directory }}"
 
 - name: Remove temporary unarchive directory
   file:
     path: "{{ tempunarchivedir.stdout }}"
     state: absent
-  delegate_to: localhost
 
 - name: Remove tarball
   file:
     path: "{{ tempdir }}/{{ configuration_tarball }}"
     state: absent
-  delegate_to: localhost
