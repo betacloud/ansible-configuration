@@ -19,7 +19,7 @@
     - vars/molecule.yml
 
   roles:
-    - role: ansible-betacloud.configuration
+    - role: ansible-configuration
 
 - hosts: all
 
@@ -37,4 +37,4 @@
       become: true
 
   roles:
-    - role: ansible-betacloud.configuration
+    - role: ansible-configuration
