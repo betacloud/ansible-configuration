@@ -1,13 +1,9 @@
 ---
-# parameters for configuration type "git"
-
-configuration_git_repository: https://github.com/openstack/kolla
-configuration_git_version: 4.0.0
-
-# parameters for configuration type "tarball"
-
 configuration_tarball_name: kolla
 configuration_tarball_path: kolla
 configuration_tarball_protocol: http
 configuration_tarball_server: tarballs.openstack.org
 configuration_tarball_version: 4.0.0
+
+configuration_git_repository: https://github.com/openstack/kolla.git
+configuration_git_version: 4.0.0

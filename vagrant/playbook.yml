@@ -1,5 +1,7 @@
+# This file is subject to the terms and conditions defined in file 'LICENSE',
+# which is part of this repository.
 ---
-- name: Install python version 2
+- name: Install python version 2 on ubuntu
   hosts: all
   gather_facts: no
 
@@ -16,11 +18,12 @@
   vars:
     configuration_type: tarball
 
-  vars_files:
-    - "../vars/molecule.yml"
+  pre_tasks:
+  - name: Include vagrant variables
+    include_vars: vars/vagrant.yml
 
   roles:
-    - role: "../../ansible-configuration"
+    - role: ../../ansible-configuration
 
 - name: Playbook for role testing
   hosts: all
@@ -28,15 +31,15 @@
   vars:
     configuration_type: git
 
-  vars_files:
-    - "../vars/molecule.yml"
-
   pre_tasks:
-    - name: Remove existing configuration directory
-      file:
-        path: "{{ configuration_directory }}"
-        state: absent
-      become: true
+  - name: Include vagrant variables
+    include_vars: vars/vagrant.yml
+
+  - name: Remove existing configuration directory
+    file:
+      path: "{{ configuration_directory }}"
+      state: absent
+    become: true
 
   roles:
-    - role: "../../ansible-configuration"
+  - role: ../../ansible-configuration
