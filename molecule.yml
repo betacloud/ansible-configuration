@@ -2,7 +2,6 @@
 driver:
   name: openstack
 openstack:
-  keyfile: /ssh/id_rsa
   instances:
     - name: molecule-configuration-ubuntu
       image: 'Ubuntu 16.04 (Xenial Xerus)'

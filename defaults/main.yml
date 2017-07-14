@@ -3,14 +3,19 @@
 
 configuration_type: tarball
 
-# destionation path for the configuration files
+# directories
 
 configuration_directory: /opt/configuration
+secrets_directory: /opt/secrets
 
 # parameters for configuration type "git"
 
-# configuration_git_private_key:
-configuration_git_private_key_file: id_rsa.configuration
+configuration_git_public_key: ssh-rsa AAAA...
+configuration_git_private_key: |
+  -----BEGIN RSA PRIVATE KEY-----
+  ...
+  -----END RSA PRIVATE KEY-----
+configuration_git_private_key_file: "{{ secrets_directory }}/id_rsa.configuration"
 configuration_git_repository: git@github.com:organisation/configuration-IDENTIFICATION-ENVIRONMENT.git
 configuration_git_version: master
 

@@ -1,13 +1,17 @@
 # This file is subject to the terms and conditions defined in file 'LICENSE',
 # which is part of this repository.
 ---
-- name: Create configuration directory
+- name: Create required directories
   file:
-    path: "{{ configuration_directory }}"
+    path: "{{ item }}"
     owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     state: directory
     mode: 0750
   become: true
+  with_items:
+    - "{{ configuration_directory }}"
+    - "{{ secrets_directory }}"
 
 - name: Include tasks required by the specific configuration type
   include: "{{ configuration_type }}.yml"
