@@ -25,7 +25,9 @@
     force_basic_auth: yes
   when:
     - configuration_tarball_username is defined
+    - configuration_tarball_username != ''
     - configuration_tarball_password is defined
+    - configuration_tarball_password != ''
 
 - name: Download configuration archive without login
   get_url:
@@ -33,8 +35,8 @@
     dest: "{{ tempdir }}/{{ configuration_tarball }}"
     mode: 0644
   when:
-    - configuration_tarball_username is not defined
-    - configuration_tarball_password is not defined
+    - configuration_tarball_username is not defined or configuration_tarball_username == ''
+    - configuration_tarball_password is not defined or configuration_tarball_password == ''
 
 - name: Create temporary unarchive directory
   command: "mktemp -d {{ tempdir }}/config.XXXX"

@@ -6,7 +6,9 @@
     content: "{{ configuration_git_private_key }}"
     dest: "{{ configuration_git_private_key_file }}"
     mode: 0600
-  when: configuration_git_private_key is defined
+  when:
+    - configuration_git_private_key is defined
+    - configuration_git_private_key != ''
 
 - name: Install git
   package:
@@ -22,7 +24,9 @@
     key_file: "{{ configuration_git_private_key_file }}"
     accept_hostkey: yes
     force: yes
-  when: configuration_git_private_key is defined
+  when:
+    - configuration_git_private_key is defined
+    - configuration_git_private_key != ''
 
 - name: Clone configuration repository without login
   git:
@@ -31,4 +35,4 @@
     version: "{{ configuration_git_version }}"
     accept_hostkey: yes
     force: yes
-  when: configuration_git_private_key is not defined
+  when: configuration_git_private_key is not defined or configuration_git_private_key == ''
