@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Christian Berendt
-  description: Ansible role to fetch a configuration repository.
+  description: Role to fetch a OSISM configuration repository.
   company: Betacloud Solutions GmbH
   license: Apache License 2.0
   min_ansible_version: 2.2
