@@ -6,7 +6,7 @@ configuration_type: tarball
 # directories
 
 configuration_directory: /opt/configuration
-secrets_directory: /opt/secrets
+secrets_directory: /opt/ansible/secrets
 
 # parameters for configuration type "git"
 
