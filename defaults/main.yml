@@ -1,13 +1,22 @@
 ---
+##########################
+# generic
+
+operator_user: "{{ ansible_user }}"
+operator_group: "{{ operator_user }}"
+
+##########################
 # possible values: git, tarball
 
 configuration_type: tarball
 
+##########################
 # directories
 
 configuration_directory: /opt/configuration
 secrets_directory: /opt/ansible/secrets
 
+##########################
 # parameters for configuration type "git"
 
 configuration_git_public_key: ssh-rsa AAAA...
@@ -19,6 +28,7 @@ configuration_git_private_key_file: "{{ secrets_directory }}/id_rsa.configuratio
 configuration_git_repository: git@github.com:organisation/configuration-IDENTIFICATION-ENVIRONMENT.git
 configuration_git_version: master
 
+##########################
 # parameters for configuration type "tarball"
 
 configuration_tarball_name: name

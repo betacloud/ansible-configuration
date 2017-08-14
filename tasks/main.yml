@@ -4,8 +4,8 @@
 - name: Create required directories
   file:
     path: "{{ item }}"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
     state: directory
     mode: 0750
   become: true
