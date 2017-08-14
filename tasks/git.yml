@@ -5,6 +5,8 @@
   copy:
     content: "{{ configuration_git_private_key }}"
     dest: "{{ configuration_git_private_key_file }}"
+    owner: "{{ operator_user }}"
+    group: "{{ operator_group }}"
     mode: 0600
   when:
     - configuration_git_private_key is defined
