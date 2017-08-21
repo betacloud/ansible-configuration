@@ -11,6 +11,7 @@
   when:
     - configuration_git_private_key is defined
     - configuration_git_private_key != ''
+  no_log: true
 
 - name: Install git
   package:
