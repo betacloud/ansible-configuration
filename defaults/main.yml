@@ -2,7 +2,7 @@
 ##########################
 # generic
 
-operator_user: "{{ ansible_user }}"
+operator_user: dragon
 operator_group: "{{ operator_user }}"
 
 ##########################

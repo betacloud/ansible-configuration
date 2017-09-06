@@ -1,19 +1,16 @@
 ---
 galaxy_info:
   author: Christian Berendt
-  description: Role to fetch a OSISM configuration repository.
+  description: Role osism.configuration
   company: Betacloud Solutions GmbH
   license: Apache License 2.0
   min_ansible_version: 2.2
   platforms:
-  - name: Ubuntu
-    versions:
-    - xenial
-  - name: EL
-    versions:
-    - 7
+    - name: Ubuntu
+      versions:
+        - xenial
   galaxy_tags:
-  - system
+    - system
   dependencies:
-  - name: osism.operator
-    src: git+https://github.com/osism/ansible-operator.git
+    - name: osism.operator
+      src: git+https://github.com/osism/ansible-operator.git
