@@ -8,7 +8,7 @@ operator_group: "{{ operator_user }}"
 ##########################
 # possible values: git, tarball
 
-configuration_type: tarball
+configuration_type: git
 
 ##########################
 # directories
