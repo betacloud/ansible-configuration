@@ -19,14 +19,42 @@ secrets_directory: /opt/ansible/secrets
 ##########################
 # parameters for configuration type "git"
 
-configuration_git_public_key: ssh-rsa AAAA...
+configuration_git_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDShCLB2dOG/8SjXOV3mxozE1EQs7nz7HNm/+EjLyUvCqthABUbn4NdMRo2E4Tw+x0WQACproCABINRUMlXouZQuBwZNXU+ZaKqfemG3BFCt5C5oohJy7Muph/KrOLazgMD5IaX8WvxmXmjcoRo1g8KhGXbmWWqVU6tDH5h2UB9CLWhK8i9LQ+i2ZYH8ypcnmpT6ptkzNKKwX6irTC4h/YxwtSDbpg+g3lkxjYtmezUcn8n43WlKzZDRBXUf/AtysiF5oWhH/XtVYEky7dwlg40lhJoVa3/0DANU8ypxlmp0H8D1dOPXh8qRhsTGSG+bCg7TUwvIWm7f6nJ65wm+xKd
 configuration_git_private_key: |
   -----BEGIN RSA PRIVATE KEY-----
-  ...
+  MIIEpQIBAAKCAQEA0oQiwdnThv/Eo1zld5saMxNRELO58+xzZv/hIy8lLwqrYQAV
+  G5+DXTEaNhOE8PsdFkAAqa6AgASDUVDJV6LmULgcGTV1PmWiqn3phtwRQreQuaKI
+  ScuzLqYfyqzi2s4DA+SGl/Fr8Zl5o3KEaNYPCoRl25llqlVOrQx+YdlAfQi1oSvI
+  vS0PotmWB/MqXJ5qU+qbZMzSisF+oq0wuIf2McLUg26YPoN5ZMY2LZns1HJ/J+N1
+  pSs2Q0QV1H/wLcrIheaFoR/17VWBJMu3cJYONJYSaFWt/9AwDVPMqcZZqdB/A9XT
+  j14fKkYbExkhvmwoO01MLyFpu3+pyeucJvsSnQIDAQABAoIBAEc3knaYFVpXTpOh
+  irOS0iMzRrpqwt7FQCk5KVX4zhCDAIVZPMrShONTCDYBFnlbynRLhK3irfAhFre8
+  p9Cw+E+YaVER568LPSOGYylPa7txVFGorYihk+WVJ64uHLS++wAnIG1orAbYz/C+
+  fhLlT8NUFQ1ccKtWHr6mOl8p2wow+XSb+0xBLdO5ptihApUcpI7ayhgpQpOMMOCd
+  zcVdU1SoQ5s4XGOwrQHlnVymLiAtnlWdZCnWlGpOQCeVsxbxbxOQDyJCT0ADQKSz
+  PCyGUxDARaOIMi5CJZQZGC+Y957a9Yn2dk3yegZH5eGeW4otAXjL8snsm3aWRJ4F
+  o4Kr/vUCgYEA/M11k+/yReijYharkC3KQhHOGGv67V1s7jzZxr74Tylr28AI1OEc
+  f8Z1ssUbgXYx+59Zp/9PNG2s7E4jvwGv83dFYXrgDVwZFPjE8/I1TnQ7Tqlmt+dS
+  cU7wSxKt+Al5i7saiENBnZF89cTMxDE3gmNpjkupyGwgSvrF+dbXRVcCgYEA1S3C
+  PSigjCCXDJ9/Jo3AOFZBlp/28JZcbCHO89bonHHMtaMgBq5X4CbJzrlEhvvJEde6
+  Z9PCmggWcl/UrFgaWNmp37tnWIf4R0UAzpqyLjSXJiAQwvZGWKhB8s7u0pPODJJ0
+  7QySpsqQZ16fWWCJfCCvqOX08OkA2+PqmgHn2ysCgYEA9I8ut7bggZDUvgeAYTJr
+  AA+JeUa8sPQ4dSCY7RPB05MWrLfR018S2ul64z6bpVpacDlv2n26edW/+7p8CkPv
+  m3A+xlbAeSwnd4pRvk0KFKOM3EQ1AqPdtY/QFlAzzEgeNXcD695kk7IzWO7RyNp0
+  AMd7ThUUYrd3ZhHDhDa6enECgYEA0Wv4i5hj0AUcHpx5juhmU3H5UP2o28T62oeE
+  BWu0bCwnjLDJ/4Y6ccvpKRo8RdcIOm0RhHo1jJgxZP7bsMuEZpC+Hzq9Ve2NbIZP
+  OqgiLt4fNqb9kGnbxbDVyLCdUWU+YH9oOo/FafFJVyNPq7/4kGaT6nqt3BUqcNpA
+  WDdTDK0CgYEA5vm4y2knLRLQsxAWSs2s/WkPUj2AZZsGgXbW4iQXkZBvkdUpSW8m
+  MLTVvAMWTmkrXFkAa67/F2KqU5V+L1KDJKIBlXvOsgcsFQ8RwKE/wb2pO69p8nfW
+  gHfD80/j7D4jirfiycENd258wJIY6vqA2kB+X0hnw1qV6ilB4plIJSM=
   -----END RSA PRIVATE KEY-----
 configuration_git_private_key_file: "{{ secrets_directory }}/id_rsa.configuration"
-configuration_git_repository: git@github.com:organisation/configuration-IDENTIFICATION-ENVIRONMENT.git
 configuration_git_version: master
+configuration_git_username: git
+configuration_git_host: github.com
+configuration_git_port: 22
+configuration_git_repository: osism/ansible-configuration.git
+configuration_git_protocol: ssh
 
 ##########################
 # parameters for configuration type "tarball"

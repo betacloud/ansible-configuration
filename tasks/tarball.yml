@@ -1,62 +1,64 @@
-# This file is subject to the terms and conditions defined in file 'LICENSE',
-# which is part of this repository.
 ---
-- name: Set tempdir
+- name: tarball - set tempdir fact
   set_fact:
     tempdir: /tmp
 
-- name: Prepare configuration_tarball archive
+- name: tarball - set configuration_tarball fact
   set_fact:
     configuration_tarball: "{{ configuration_tarball_name }}-{{ configuration_tarball_version }}.tar.gz"
 
-- name: Install rsync
+- name: tarball - set configuration_tarball_url fact
+  set_fact:
+    configuration_tarball_url: "{{ configuration_tarball_protocol }}://{{ configuration_tarball_server }}/{{ configuration_tarball_path }}/{{ configuration_tarball }}"
+
+- name: tarball - install required packages
   package:
-    name: rsync
+    name: "{{ item }}"
     state: present
   become: true
+  with_items:
+    - rsync
 
-- name: Download configuration archive using username/password
+- name: tarball - download configuration archive (with auth)
   get_url:
-    url: "{{ configuration_tarball_protocol }}://{{ configuration_tarball_server }}/{{ configuration_tarball_path }}/{{ configuration_tarball }}"
+    url: "{{ configuration_tarball_url }}"
     dest: "{{ configuration_directory }}/{{ configuration_tarball }}"
     mode: 0644
     url_username: "{{ configuration_tarball_username }}"
     url_password: "{{ configuration_tarball_password }}"
     force_basic_auth: yes
   when:
-    - configuration_tarball_username is defined
-    - configuration_tarball_username != ''
-    - configuration_tarball_password is defined
-    - configuration_tarball_password != ''
+    - configuration_tarball_username is defined and configuration_tarball_username
+    - configuration_tarball_password is defined and configuration_tarball_password
 
-- name: Download configuration archive without login
+- name: tarball - download configuration archive (without auth)
   get_url:
-    url: "{{ configuration_tarball_protocol }}://{{ configuration_tarball_server }}/{{ configuration_tarball_path }}/{{ configuration_tarball }}"
+    url: "{{ configuration_tarball_url }}"
     dest: "{{ tempdir }}/{{ configuration_tarball }}"
     mode: 0644
   when:
-    - configuration_tarball_username is not defined or configuration_tarball_username == ''
-    - configuration_tarball_password is not defined or configuration_tarball_password == ''
+    - configuration_tarball_username is not defined or configuration_tarball_username
+    - configuration_tarball_password is not defined or configuration_tarball_password
 
-- name: Create temporary unarchive directory
+- name: tarball - create temporary unarchive directory
   command: "mktemp -d {{ tempdir }}/config.XXXX"
   register: tempunarchivedir
 
-- name: Unarchive configuration archive
+- name: tarball - unarchive configuration archive
   unarchive:
     src: "{{ tempdir }}/{{ configuration_tarball }}"
     dest: "{{ tempunarchivedir.stdout }}"
     remote_src: true
 
-- name: Synchronize configuration directory
+- name: tarball - synchronize configuration directory
   command: "rsync -rtvu --delete {{ tempunarchivedir.stdout }} {{ configuration_directory }}"
 
-- name: Remove temporary unarchive directory
+- name: tarball - remove temporary unarchive directory
   file:
     path: "{{ tempunarchivedir.stdout }}"
     state: absent
 
-- name: Remove tarball
+- name: tarball - remove tarball
   file:
     path: "{{ tempdir }}/{{ configuration_tarball }}"
     state: absent
