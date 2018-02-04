@@ -1,20 +1,9 @@
 ---
-- name: Playbook for preparations
-  hosts: all
-
-  roles: []
-
 - name: Playbook for role testing
   hosts: all
 
   vars:
-    operator_user: root
-    configuration_type: tarball
-    configuration_tarball_name: kolla
-    configuration_tarball_path: kolla
-    configuration_tarball_protocol: http
-    configuration_tarball_server: tarballs.openstack.org
-    configuration_tarball_version: 4.0.0
+    operator_user: ubuntu
 
   roles:
     - role: ansible-configuration
