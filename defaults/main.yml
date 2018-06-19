@@ -19,7 +19,14 @@ secrets_directory: /opt/ansible/secrets
 ##########################
 # parameters for configuration type "git"
 
-configuration_git_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDShCLB2dOG/8SjXOV3mxozE1EQs7nz7HNm/+EjLyUvCqthABUbn4NdMRo2E4Tw+x0WQACproCABINRUMlXouZQuBwZNXU+ZaKqfemG3BFCt5C5oohJy7Muph/KrOLazgMD5IaX8WvxmXmjcoRo1g8KhGXbmWWqVU6tDH5h2UB9CLWhK8i9LQ+i2ZYH8ypcnmpT6ptkzNKKwX6irTC4h/YxwtSDbpg+g3lkxjYtmezUcn8n43WlKzZDRBXUf/AtysiF5oWhH/XtVYEky7dwlg40lhJoVa3/0DANU8ypxlmp0H8D1dOPXh8qRhsTGSG+bCg7TUwvIWm7f6nJ65wm+xKd
+configuration_git_public_key:
+  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDShCLB2dOG/8SjXOV3mxozE1\
+   EQs7nz7HNm/+EjLyUvCqthABUbn4NdMRo2E4Tw+x0WQACproCABINRUMlXouZQ\
+   uBwZNXU+ZaKqfemG3BFCt5C5oohJy7Muph/KrOLazgMD5IaX8WvxmXmjcoRo1g\
+   8KhGXbmWWqVU6tDH5h2UB9CLWhK8i9LQ+i2ZYH8ypcnmpT6ptkzNKKwX6irTC4\
+   h/YxwtSDbpg+g3lkxjYtmezUcn8n43WlKzZDRBXUf/AtysiF5oWhH/XtVYEky7\
+   dwlg40lhJoVa3/0DANU8ypxlmp0H8D1dOPXh8qRhsTGSG+bCg7TUwvIWm7f6nJ\
+   65wm+xKd"
 configuration_git_private_key: |
   -----BEGIN RSA PRIVATE KEY-----
   MIIEpQIBAAKCAQEA0oQiwdnThv/Eo1zld5saMxNRELO58+xzZv/hIy8lLwqrYQAV
