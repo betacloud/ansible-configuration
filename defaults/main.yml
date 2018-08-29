@@ -14,7 +14,6 @@ configuration_type: git
 # directories
 
 configuration_directory: /opt/configuration
-secrets_directory: /opt/ansible/secrets
 
 ##########################
 # parameters for configuration type "git"
@@ -55,7 +54,7 @@ configuration_git_private_key: |
   MLTVvAMWTmkrXFkAa67/F2KqU5V+L1KDJKIBlXvOsgcsFQ8RwKE/wb2pO69p8nfW
   gHfD80/j7D4jirfiycENd258wJIY6vqA2kB+X0hnw1qV6ilB4plIJSM=
   -----END RSA PRIVATE KEY-----
-configuration_git_private_key_file: "{{ secrets_directory }}/id_rsa.configuration"
+configuration_git_private_key_file: ~/.ssh/id_rsa.configuration
 configuration_git_version: master
 configuration_git_username: git
 configuration_git_host: github.com

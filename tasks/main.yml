@@ -9,7 +9,6 @@
   become: true
   with_items:
     - "{{ configuration_directory }}"
-    - "{{ secrets_directory }}"
 
 - name: Include tasks required by the specific configuration type
   include: "{{ configuration_type }}.yml"
