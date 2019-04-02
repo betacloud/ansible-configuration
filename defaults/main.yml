@@ -6,7 +6,7 @@ operator_user: dragon
 operator_group: "{{ operator_user }}"
 
 ##########################
-# possible values: git, tarball
+# possible values: git
 
 configuration_type: git
 
@@ -61,14 +61,3 @@ configuration_git_host: github.com
 configuration_git_port: 22
 configuration_git_repository: osism/ansible-configuration.git
 configuration_git_protocol: ssh
-
-##########################
-# parameters for configuration type "tarball"
-
-configuration_tarball_name: name
-# configuration_tarball_password:
-configuration_tarball_path: repository
-configuration_tarball_protocol: https
-configuration_tarball_server: files.organisation.tld
-# configuration_tarball_username:
-configuration_tarball_version: latest
