@@ -16,7 +16,7 @@
     owner: "{{ operator_user }}"
     group: "{{ operator_group }}"
     mode: 0600
-  when: configuration_git_protocol == 'ssh'
+  when: (configuration_git_protocol == 'ssh' and configuration_git_private_key is defined and configuration_git_private_key|length)
   no_log: true
 
 - name: git - install required packages
